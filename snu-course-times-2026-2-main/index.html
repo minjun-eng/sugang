@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2026-2 SNU 시간표 빌더</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2359b8a8'/%3E%3Cpath d='M8 8h16v4H8zm0 6h7v10H8zm9 0h7v10h-7z' fill='%23ffffff'/%3E%3C/svg%3E" />
+    <script>
+      try {
+        if (localStorage.getItem("snuTheme:2026-2") === "dark") document.documentElement.dataset.theme = "dark";
+      } catch {}
+    </script>
+    <link rel="stylesheet" href="./styles.css?v=20260629-file-labels-rename" />
+  </head>
+  <body>
+    <header class="appHeader">
+      <div>
+        <p class="eyebrow">서울대학교 수강편람 · 2026-2</p>
+        <div class="titleRow">
+          <h1>시간표 빌더</h1>
+          <span id="lastUpdatedText" class="lastUpdatedBadge" aria-label="마지막 업데이트"></span>
+        </div>
+      </div>
+      <div class="headerActions">
+        <button id="themeToggleButton" class="ghostButton themeToggleButton" type="button" aria-pressed="false">
+          <span class="themeSwitchDot" aria-hidden="true"></span>
+          <span id="themeToggleText">다크모드</span>
+        </button>
+        <button id="clearScheduleButton" class="ghostButton" type="button">시간표 비우기</button>
+        <a class="primaryButton" href="./snu_course_times_2026_2.xlsx" download>Excel 다운로드</a>
+      </div>
+    </header>
+
+    <main class="appShell">
+      <aside class="searchPanel" aria-label="과목 검색">
+        <section class="panelBlock searchControls">
+          <div class="panelTitle">
+            <h2>과목 찾기</h2>
+            <span id="resultNote">0개</span>
+          </div>
+
+          <div class="searchFields">
+            <label class="field courseNameField">
+              <span>과목명 검색</span>
+              <input id="courseSearchInput" type="search" placeholder="예: 컴퓨팅, 글쓰기, 미적분" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>교수명 검색</span>
+              <input id="professorSearchInput" type="search" placeholder="예: 김현주, 변해선" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>학과</span>
+              <input id="departmentInput" list="departmentList" placeholder="전체" autocomplete="off" />
+              <datalist id="departmentList"></datalist>
+            </label>
+          </div>
+
+          <div class="filterGrid">
+            <fieldset class="checkgroup">
+              <legend>구분</legend>
+              <label><input type="checkbox" name="category" value="교양" checked />교양</label>
+              <label><input type="checkbox" name="category" value="학사" checked />학사</label>
+              <label><input type="checkbox" name="category" value="대학원" checked />대학원</label>
+            </fieldset>
+
+            <fieldset class="checkgroup">
+              <legend>학년</legend>
+              <label><input type="checkbox" name="grade" value="1학년" checked />1</label>
+              <label><input type="checkbox" name="grade" value="2학년" checked />2</label>
+              <label><input type="checkbox" name="grade" value="3학년" checked />3</label>
+              <label><input type="checkbox" name="grade" value="4학년" checked />4</label>
+              <label><input type="checkbox" name="grade" value="5학년" checked />5</label>
+              <label><input type="checkbox" name="grade" value="미지정" checked />미지정</label>
+            </fieldset>
+
+            <fieldset class="checkgroup">
+              <legend>전공여부</legend>
+              <label><input type="checkbox" name="major" value="전공" checked />전공</label>
+              <label><input type="checkbox" name="major" value="비전공" checked />비전공</label>
+            </fieldset>
+
+            <fieldset class="checkgroup dayGroup">
+              <legend>요일</legend>
+              <div class="modeSwitch" role="radiogroup" aria-label="요일 필터 기준">
+                <label><input type="radio" name="dayMode" value="include" checked />포함</label>
+                <label><input type="radio" name="dayMode" value="exact" />요일만</label>
+              </div>
+              <label><input type="checkbox" name="day" value="월" />월</label>
+              <label><input type="checkbox" name="day" value="화" />화</label>
+              <label><input type="checkbox" name="day" value="수" />수</label>
+              <label><input type="checkbox" name="day" value="목" />목</label>
+              <label><input type="checkbox" name="day" value="금" />금</label>
+              <label><input type="checkbox" name="day" value="토" />토</label>
+            </fieldset>
+          </div>
+
+          <div class="inlineControls">
+            <label class="field compact">
+              <span>시작</span>
+              <select id="startTime"></select>
+            </label>
+            <label class="field compact">
+              <span>끝</span>
+              <select id="endTime"></select>
+            </label>
+          </div>
+        </section>
+
+        <section class="panelBlock grow">
+          <div class="panelTitle">
+            <h2>검색 결과</h2>
+            <span id="visibleCount">0</span>
+          </div>
+          <div id="courseResults" class="courseResults"></div>
+          <button id="moreButton" class="wideButton secondary" type="button">더 보기</button>
+        </section>
+      </aside>
+
+      <section class="calendarPanel" aria-label="시간표">
+        <div class="calendarToolbar">
+          <div>
+            <p class="eyebrow dark">내 시간표</p>
+            <h2>월-토 주간표</h2>
+          </div>
+          <div class="calendarActions">
+            <div class="statStrip">
+              <div><span>과목</span><strong id="selectedCount">0</strong></div>
+              <div><span>학점</span><strong id="creditCount">0</strong></div>
+              <div><span>충돌</span><strong id="conflictCount">0</strong></div>
+            </div>
+            <button id="saveImageButton" class="ghostButton compactButton" type="button">이미지 저장</button>
+          </div>
+        </div>
+
+        <div class="timetable" id="timetable">
+          <div class="cornerCell">시간</div>
+          <div class="dayHeader">월</div>
+          <div class="dayHeader">화</div>
+          <div class="dayHeader">수</div>
+          <div class="dayHeader">목</div>
+          <div class="dayHeader">금</div>
+          <div class="dayHeader">토</div>
+          <div id="timeAxis" class="timeAxis"></div>
+          <div id="dayColumns" class="dayColumns"></div>
+        </div>
+      </section>
+
+      <aside class="schedulePanel" aria-label="선택 과목">
+        <section class="panelBlock selectedPanel">
+          <div class="documentBar" aria-label="현재 시간표 파일">
+            <div class="documentInfo">
+              <div>
+                <span class="documentEyebrow">현재 시간표</span>
+                <h2 id="documentName">제목 없음</h2>
+              </div>
+              <span id="documentStatus" class="saveState">저장 안 됨</span>
+            </div>
+            <div class="fileToolbar" aria-label="시간표 파일 작업">
+              <button id="newScheduleButton" class="ghostButton toolButton" type="button">새로만들기</button>
+              <button id="saveAsScheduleButton" class="ghostButton toolButton" type="button">다른 이름으로 저장</button>
+              <button id="saveScheduleButton" class="ghostButton toolButton" type="button">저장</button>
+              <button id="loadScheduleButton" class="ghostButton toolButton" type="button">열기</button>
+              <button id="shareScheduleButton" class="ghostButton toolButton" type="button">공유</button>
+            </div>
+          </div>
+          <div class="panelTitle compactTitle">
+            <h2>선택한 과목</h2>
+            <span id="selectedNote">비어 있음</span>
+          </div>
+          <div id="conflictBanner" class="conflictBanner" hidden>겹치는 시간이 있습니다.</div>
+          <div id="selectedCourses" class="selectedCourses"></div>
+        </section>
+
+        <section class="panelBlock detailPanel">
+          <div class="panelTitle">
+            <h2>과목 상세</h2>
+          </div>
+          <h3 id="detailTitle">과목을 선택하세요</h3>
+          <dl id="detailList" class="detailList"></dl>
+        </section>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <div id="loadScheduleModal" class="modalBackdrop" hidden>
+      <section class="modalPanel" role="dialog" aria-modal="true" aria-labelledby="loadScheduleTitle">
+        <div class="modalHeader">
+          <h2 id="loadScheduleTitle">저장된 시간표</h2>
+          <button id="closeLoadModalButton" class="ghostButton smallButton" type="button">닫기</button>
+        </div>
+        <div id="savedScheduleList" class="savedScheduleList"></div>
+      </section>
+    </div>
+
+    <div id="saveNameModal" class="modalBackdrop" hidden>
+      <section class="modalPanel saveNamePanel" role="dialog" aria-modal="true" aria-labelledby="saveNameTitle">
+        <div class="modalHeader">
+          <h2 id="saveNameTitle">다른 이름으로 저장</h2>
+          <button id="cancelSaveNameButton" class="ghostButton smallButton" type="button">취소</button>
+        </div>
+        <label class="field saveNameField">
+          <span>시간표 이름</span>
+          <input id="scheduleNameInput" type="text" maxlength="40" autocomplete="off" />
+        </label>
+        <div class="modalActions">
+          <button id="confirmSaveNameButton" class="primaryButton toolButton" type="button">저장</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="./data/courses-data.js?v=20260705014802"></script>
+    <script src="./app.js?v=20260703-deployfix"></script>
+  </body>
+</html>

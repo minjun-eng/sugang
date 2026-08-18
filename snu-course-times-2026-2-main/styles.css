@@ -1,0 +1,1480 @@
+:root {
+  --ink: #213044;
+  --muted: #6d7a8d;
+  --line: #dce7ef;
+  --bg: #f8fbff;
+  --bg-gradient: linear-gradient(180deg, rgba(232, 245, 255, 0.95) 0, rgba(248, 251, 255, 0.2) 260px);
+  --panel: #ffffff;
+  --panel-tint: rgba(255, 255, 255, 0.94);
+  --soft: #f0f7fb;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #cbdce8;
+  --table-bg: #ffffff;
+  --table-head: #f8fcff;
+  --axis-bg: #fbfdff;
+  --grid-line: #edf3f7;
+  --hour-line: #e5eef5;
+  --selected-bg: #f0fbf8;
+  --button-soft: #edf7fb;
+  --danger-bg: #fff2f1;
+  --danger-ink: #c7514b;
+  --danger-line: #ffd3cf;
+  --badge-bg: #ffe4a3;
+  --mint: #59b8a8;
+  --mint-deep: #2d8f80;
+  --sky: #7bbcec;
+  --sky-soft: #e8f5ff;
+  --coral: #ff8e83;
+  --yellow: #ffe4a3;
+  --lavender: #b9a7ff;
+  --rose: #f7a6c8;
+  --shadow: 0 18px 50px rgba(88, 137, 168, 0.14);
+  --radius: 8px;
+  --minute-px: 0.49px;
+}
+
+:root[data-theme="dark"] {
+  --ink: #d8e0ec;
+  --muted: #8f9caf;
+  --line: #2a3545;
+  --bg: #101722;
+  --bg-gradient: linear-gradient(180deg, rgba(28, 42, 57, 0.72) 0, rgba(16, 23, 34, 0.2) 300px);
+  --panel: #151e2a;
+  --panel-tint: rgba(21, 30, 42, 0.96);
+  --soft: #1a2736;
+  --card-bg: #172232;
+  --input-bg: #111a26;
+  --input-border: #334052;
+  --table-bg: #111a26;
+  --table-head: #172232;
+  --axis-bg: #151f2d;
+  --grid-line: #273342;
+  --hour-line: #303b4b;
+  --selected-bg: #19302f;
+  --button-soft: #192737;
+  --danger-bg: #382327;
+  --danger-ink: #e6a09b;
+  --danger-line: #594145;
+  --badge-bg: #b89455;
+  --mint: #5fb5a8;
+  --mint-deep: #9acbc4;
+  --sky-soft: #1b2c3e;
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: var(--bg-gradient), var(--bg);
+  color: var(--ink);
+  font-family:
+    "Noto Sans KR",
+    "Apple SD Gothic Neo",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px clamp(18px, 4vw, 40px) 12px;
+}
+
+.eyebrow {
+  color: var(--mint-deep);
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.eyebrow.dark {
+  color: var(--muted);
+}
+
+h1 {
+  font-size: clamp(25px, 3vw, 34px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lastUpdatedBadge {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+#detailTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.primaryButton,
+.ghostButton,
+.wideButton,
+.addButton,
+.removeButton {
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  min-height: 38px;
+  padding: 0 14px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.toolButton,
+.smallButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  background: var(--mint);
+  color: white;
+  box-shadow: 0 10px 22px rgba(45, 143, 128, 0.22);
+}
+
+.ghostButton {
+  background: var(--card-bg);
+  color: var(--mint-deep);
+  border-color: var(--line);
+}
+
+.themeToggleButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.themeSwitchDot {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffcf66 0%, #fff2b8 100%);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.52), 0 0 0 1px rgba(255, 190, 72, 0.24);
+}
+
+:root[data-theme="dark"] .themeSwitchDot {
+  background: radial-gradient(circle at 65% 34%, #2b3544 0 20%, transparent 22%), linear-gradient(135deg, #9acbc4 0%, #7da6c9 100%);
+  box-shadow: 0 0 10px rgba(154, 203, 196, 0.16), inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+:root[data-theme="dark"] .primaryButton,
+:root[data-theme="dark"] .addButton {
+  color: #0d1721;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .courseBlock {
+  filter: saturate(0.82) brightness(0.96);
+}
+
+.appShell {
+  display: grid;
+  grid-template-columns: clamp(210px, 24vw, 360px) minmax(260px, 1fr) clamp(190px, 20vw, 320px);
+  grid-template-rows: minmax(0, 1fr);
+  align-content: start;
+  align-items: stretch;
+  gap: 12px;
+  width: min(1820px, 100%);
+  margin: 0 auto;
+  padding: 0 clamp(12px, 2vw, 26px) 18px;
+}
+
+.searchPanel,
+.calendarPanel,
+.schedulePanel {
+  min-width: 0;
+}
+
+.searchPanel,
+.schedulePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.searchPanel {
+  min-height: 0;
+}
+
+.panelBlock,
+.calendarPanel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-tint);
+  box-shadow: var(--shadow);
+}
+
+.panelBlock {
+  padding: 12px;
+}
+
+.searchControls {
+  padding: 9px;
+}
+
+.searchControls h2 {
+  font-size: 16px;
+}
+
+.panelBlock.grow {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panelTitle,
+.calendarToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panelTitle {
+  margin-bottom: 10px;
+}
+
+.searchControls .panelTitle {
+  margin-bottom: 6px;
+}
+
+.panelTitle span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.field {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.searchFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.searchFields .field {
+  margin-bottom: 0;
+}
+
+.courseNameField {
+  grid-column: 1 / -1;
+}
+
+.field span,
+.checkgroup legend {
+  display: block;
+  margin: 0 0 6px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.dayGroup {
+  position: relative;
+  padding-right: 99px;
+}
+
+.modeSwitch {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  min-width: 88px;
+  overflow: hidden;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: var(--input-bg);
+}
+
+.modeSwitch label {
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 3px 6px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.modeSwitch label:has(input:checked) {
+  background: var(--mint);
+  color: #fff;
+}
+
+input[type="search"],
+input[list],
+select {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: var(--input-bg);
+  color: var(--ink);
+  outline: none;
+  padding: 0 11px;
+}
+
+.searchControls input[type="search"],
+.searchControls input[list],
+.searchControls select {
+  height: 30px;
+  padding: 0 9px;
+  font-size: 12px;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--mint);
+  box-shadow: 0 0 0 3px rgba(89, 184, 168, 0.16);
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.searchControls .filterGrid {
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.checkgroup {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  padding: 8px 9px 9px;
+}
+
+.searchControls .checkgroup {
+  padding: 5px 6px;
+}
+
+.searchControls .dayGroup {
+  padding: 5px 100px 5px 6px;
+}
+
+.searchControls .field span,
+.searchControls .checkgroup legend {
+  margin-bottom: 2px;
+  font-size: 10px;
+}
+
+.checkgroup label,
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 9px 3px 0;
+  font-weight: 850;
+}
+
+.searchControls .checkgroup label {
+  gap: 3px;
+  margin: 0 5px 1px 0;
+  font-size: 10px;
+  line-height: 1.15;
+}
+
+.searchControls .modeSwitch label {
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 3px 6px;
+  line-height: 1;
+}
+
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--mint-deep);
+}
+
+input[type="radio"] {
+  accent-color: var(--mint-deep);
+}
+
+.modeSwitch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.searchControls input[type="checkbox"] {
+  width: 12px;
+  height: 12px;
+}
+
+.inlineControls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.searchControls .inlineControls {
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.searchControls .inlineControls .field {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px;
+}
+
+.searchControls .inlineControls .field span {
+  margin: 0;
+}
+
+.field.compact {
+  margin-bottom: 0;
+}
+
+.toggle {
+  grid-column: auto;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  min-height: 38px;
+  border: 1px solid #cfe7e2;
+  border-radius: var(--radius);
+  background: #e9f7f3;
+  color: var(--mint-deep);
+}
+
+.wideButton {
+  width: 100%;
+  background: var(--button-soft);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.wideButton.secondary {
+  margin-top: 10px;
+}
+
+.courseResults {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  max-height: none;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.courseCard {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  padding: 6px 8px;
+}
+
+.courseCard.selected {
+  border-color: var(--mint);
+  background: var(--selected-bg);
+}
+
+.courseCardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.courseCardHeader > div {
+  min-width: 0;
+}
+
+.courseCard h3 {
+  font-size: 13px;
+  line-height: 1.2;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.courseTitleLine {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.courseTitleLine h3 {
+  min-width: 0;
+}
+
+.miniBadge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-height: 17px;
+  border: 1px solid rgba(45, 143, 128, 0.28);
+  border-radius: 5px;
+  background: rgba(45, 143, 128, 0.1);
+  color: var(--mint-deep);
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.englishBadge {
+  letter-spacing: 0;
+}
+
+.detailTitleBadge {
+  transform: translateY(1px);
+}
+
+.courseMeta,
+.courseTime {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.28;
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.courseTime {
+  color: var(--mint-deep);
+  font-weight: 850;
+}
+
+.addButton {
+  flex: 0 0 auto;
+  min-height: 26px;
+  padding: 0 8px;
+  background: var(--mint);
+  color: white;
+  font-size: 11px;
+}
+
+.addButton.isRemove {
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  border-color: var(--danger-line);
+}
+
+.addButton:disabled {
+  cursor: default;
+}
+
+.calendarPanel {
+  min-height: 0;
+  padding: 12px;
+}
+
+.calendarToolbar {
+  margin-bottom: 10px;
+}
+
+.calendarActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.statStrip {
+  display: flex;
+  gap: 6px;
+}
+
+.statStrip div {
+  min-width: 78px;
+  border-radius: var(--radius);
+  background: var(--sky-soft);
+  padding: 7px 10px;
+}
+
+.statStrip span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.statStrip strong {
+  display: block;
+  font-size: 20px;
+  line-height: 1.05;
+  margin-top: 3px;
+}
+
+.compactButton {
+  min-height: 52px;
+  white-space: nowrap;
+}
+
+.timetable {
+  display: grid;
+  grid-template-columns: 52px repeat(6, minmax(0, 1fr));
+  grid-template-rows: 34px auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--table-bg);
+}
+
+.cornerCell,
+.dayHeader {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border-bottom: 1px solid var(--line);
+  background: var(--table-head);
+  font-weight: 950;
+}
+
+.cornerCell {
+  left: 0;
+  z-index: 6;
+  grid-column: 1;
+}
+
+.timeAxis {
+  grid-column: 1;
+  grid-row: 2;
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  width: 52px;
+  height: calc(840 * var(--minute-px));
+  background: var(--axis-bg);
+  border-right: 1px solid var(--line);
+}
+
+.timeLabel {
+  position: absolute;
+  right: 7px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.timeLabel:first-child {
+  transform: translateY(0);
+}
+
+.timeLabel:last-child {
+  transform: translateY(-100%);
+}
+
+.dayColumns {
+  grid-column: 2 / 8;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  height: calc(840 * var(--minute-px));
+  min-width: 0;
+}
+
+.dayColumn {
+  position: relative;
+  border-right: 1px solid var(--grid-line);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(60 * var(--minute-px) - 1px),
+      var(--hour-line) calc(60 * var(--minute-px) - 1px),
+      var(--hour-line) calc(60 * var(--minute-px))
+    );
+}
+
+.dayColumn:last-child {
+  border-right: 0;
+}
+
+.courseBlock {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  appearance: none;
+  border: 1px solid rgba(33, 48, 68, 0.12);
+  border-radius: 7px;
+  padding: 6px 8px;
+  overflow: hidden;
+  color: white;
+  box-shadow: none;
+  font-size: 11px;
+  line-height: 1.25;
+  text-align: center;
+  cursor: pointer;
+}
+
+.courseBlock:focus-visible {
+  outline: 2px solid rgba(45, 143, 128, 0.32);
+  outline-offset: 2px;
+}
+
+.courseBlock.conflict {
+  outline: 3px solid rgba(255, 100, 96, 0.72);
+}
+
+.courseBlock strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 12px;
+  line-height: 1.16;
+  margin: 0;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.courseBlock span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  opacity: 0.93;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.courseBlock .professorName {
+  font-size: 10px;
+  font-weight: 850;
+  line-height: 1.08;
+}
+
+.courseBlock.isTiny {
+  gap: 0;
+  padding: 4px 6px;
+}
+
+.courseBlock.isMicro {
+  gap: 0;
+  padding: 0 4px;
+}
+
+.courseBlock.isMicro strong {
+  font-size: 10px;
+  line-height: 1;
+  -webkit-line-clamp: 1;
+}
+
+.courseBlock.isMicro .professorName {
+  display: none;
+}
+
+.courseBlock.isTiny strong {
+  font-size: 11px;
+  line-height: 1.12;
+  -webkit-line-clamp: 1;
+}
+
+.courseBlock.isTiny .professorName {
+  font-size: 9px;
+  line-height: 1.05;
+}
+
+.courseBlock.isCompact {
+  padding: 5px 7px;
+}
+
+.courseBlock.isCompact strong {
+  font-size: 11px;
+  -webkit-line-clamp: 2;
+}
+
+.courseBlock.isCompact span {
+  font-size: 10px;
+}
+
+.selectedCourses {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 0;
+  max-height: 318px;
+  overflow: auto;
+}
+
+.selectedPanel,
+.detailPanel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.selectedPanel {
+  flex: 1 1 52%;
+}
+
+.detailPanel {
+  flex: 1 1 48%;
+}
+
+.documentBar {
+  margin-bottom: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+  padding: 8px;
+}
+
+.documentInfo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.documentEyebrow {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 950;
+  margin-bottom: 2px;
+}
+
+#documentName {
+  max-width: 180px;
+  margin: 0;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.saveState {
+  flex: 0 0 auto;
+  border: 1px solid var(--danger-line);
+  border-radius: var(--radius);
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.saveState.saved {
+  border-color: rgba(45, 143, 128, 0.22);
+  background: var(--selected-bg);
+  color: var(--mint-deep);
+}
+
+.fileToolbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.fileToolbar .toolButton {
+  min-height: 30px;
+  padding: 0 7px;
+  justify-content: center;
+  width: 100%;
+  box-shadow: none;
+  overflow: hidden;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compactTitle {
+  margin-bottom: 7px;
+}
+
+.selectedCard {
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--mint);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  padding: 10px;
+}
+
+.selectedCard h3 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.selectedCard p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.removeButton {
+  min-height: 30px;
+  margin-top: 8px;
+  padding: 0 10px;
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  border-color: var(--danger-line);
+}
+
+.dangerButton {
+  color: var(--danger-ink);
+  border-color: var(--danger-line);
+  background: var(--danger-bg);
+}
+
+.conflictBanner {
+  margin-bottom: 10px;
+  border-radius: var(--radius);
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  padding: 10px;
+  font-weight: 900;
+}
+
+.detailList {
+  overflow: auto;
+  margin: 0;
+}
+
+.detailList dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 950;
+  margin-top: 10px;
+}
+
+.detailList dd {
+  margin: 3px 0 0;
+  line-height: 1.38;
+}
+
+.detailList dd.detailText {
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border-radius: var(--radius);
+  background: var(--badge-bg);
+  padding: 3px 8px;
+  font-weight: 900;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 60;
+  transform: translateX(-50%);
+  max-width: min(420px, calc(100vw - 32px));
+  border: 1px solid rgba(45, 143, 128, 0.22);
+  border-radius: var(--radius);
+  background: var(--mint);
+  color: white;
+  box-shadow: 0 16px 42px rgba(33, 48, 68, 0.18);
+  padding: 12px 16px;
+  font-weight: 950;
+  text-align: center;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: grid;
+  place-items: center;
+  background: rgba(33, 48, 68, 0.28);
+  padding: 18px;
+}
+
+.modalPanel {
+  width: min(520px, 100%);
+  max-height: min(680px, calc(100dvh - 40px));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.modalHeader,
+.savedScheduleItem,
+.savedScheduleActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modalHeader {
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.saveNameField {
+  margin-bottom: 12px;
+}
+
+.saveNameField input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: var(--input-bg);
+  color: var(--ink);
+  outline: none;
+  padding: 0 11px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modalActions .toolButton {
+  min-width: 110px;
+}
+
+.savedScheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: min(560px, calc(100dvh - 138px));
+  overflow: auto;
+}
+
+.savedScheduleItem {
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  padding: 10px;
+}
+
+.savedScheduleItem.active {
+  border-color: var(--mint);
+  background: var(--selected-bg);
+}
+
+.savedScheduleItem h3 {
+  margin: 0 0 3px;
+  font-size: 14px;
+}
+
+.savedScheduleItem p,
+.savedEmpty {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.savedScheduleActions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  flex: 0 0 auto;
+  min-width: 224px;
+  width: min(260px, 100%);
+}
+
+@media (min-width: 760px) and (min-height: 760px) {
+  html,
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .appShell {
+    height: calc(100dvh - 66px);
+    overflow: hidden;
+  }
+
+  .calendarPanel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .timetable {
+    flex: 1;
+    min-height: 420px;
+    grid-template-rows: 34px minmax(0, 1fr);
+  }
+
+  .timeAxis,
+  .dayColumns {
+    height: 100%;
+  }
+
+  .searchPanel,
+  .courseResults {
+    overflow: auto;
+  }
+
+  .schedulePanel {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .schedulePanel .panelBlock {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .selectedCourses,
+  .detailList {
+    flex: 1;
+    max-height: none;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 760px) {
+  .appShell {
+    grid-template-columns: minmax(190px, 0.9fr) minmax(260px, 1.35fr) minmax(180px, 0.85fr);
+  }
+
+  .calendarToolbar {
+    gap: 6px;
+  }
+
+  .calendarToolbar h2 {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .calendarToolbar .eyebrow {
+    font-size: 10px;
+  }
+
+  .statStrip {
+    gap: 4px;
+  }
+
+  .statStrip div {
+    min-width: 48px;
+    padding: 5px 6px;
+  }
+
+  .statStrip span {
+    font-size: 9px;
+  }
+
+  .statStrip strong {
+    font-size: 17px;
+  }
+
+  .compactButton {
+    min-height: 42px;
+    padding: 0 7px;
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1181px) and (max-width: 1440px) {
+  .appShell {
+    grid-template-columns: clamp(250px, 23vw, 330px) minmax(360px, 1fr) clamp(220px, 20vw, 300px);
+  }
+
+  .statStrip div {
+    min-width: 68px;
+  }
+}
+
+@media (max-width: 980px) {
+  body {
+    overflow-y: auto;
+  }
+
+  .appHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .headerActions,
+  .primaryButton,
+  .ghostButton {
+    width: 100%;
+  }
+
+  .primaryButton,
+  .ghostButton {
+    justify-content: center;
+  }
+
+  .courseResults {
+    max-height: 420px;
+  }
+
+  .calendarPanel {
+    min-height: auto;
+  }
+
+  .timetable {
+    grid-template-columns: 44px repeat(6, minmax(0, 1fr));
+  }
+
+  .dayColumns {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    font-size: 13px;
+  }
+
+  .searchFields,
+  .filterGrid,
+  .inlineControls {
+    grid-template-columns: 1fr;
+  }
+
+  .calendarActions {
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .statStrip {
+    display: grid;
+    flex: 1 1 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .statStrip div {
+    min-width: 0;
+    padding: 7px 8px;
+  }
+
+  .compactButton {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .appShell {
+    padding-inline: 10px;
+  }
+
+  .calendarPanel {
+    padding: 10px;
+  }
+
+  .calendarToolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .timetable {
+    grid-template-columns: 34px repeat(6, minmax(0, 1fr));
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .cornerCell,
+  .dayHeader {
+    min-height: 34px;
+    font-size: 11px;
+  }
+
+  .timeAxis {
+    width: 34px;
+  }
+
+  .timeLabel {
+    right: 4px;
+    font-size: 9px;
+  }
+
+  .dayColumns {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    min-width: 0;
+  }
+
+  .courseBlock {
+    left: 2px;
+    right: 2px;
+    border-radius: 5px;
+    padding: 3px 2px;
+  }
+
+  .courseBlock strong {
+    font-size: 9px;
+    line-height: 1.05;
+  }
+
+  .courseBlock .professorName {
+    font-size: 8px;
+    line-height: 1.05;
+  }
+
+  .savedScheduleItem {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .savedScheduleActions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .courseBlock.isTiny {
+    padding: 2px;
+  }
+}
+
+@media (max-width: 759px) {
+  html,
+  body {
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .appShell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .searchPanel,
+  .calendarPanel,
+  .schedulePanel {
+    grid-column: 1;
+  }
+
+  .searchPanel,
+  .schedulePanel {
+    overflow: visible;
+  }
+
+  .courseResults {
+    max-height: 420px;
+  }
+
+  .calendarPanel {
+    overflow: visible;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 980px) {
+  body {
+    overflow: hidden;
+  }
+
+  .appHeader {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .headerActions,
+  .primaryButton,
+  .ghostButton {
+    width: auto;
+  }
+
+  .primaryButton,
+  .ghostButton {
+    justify-content: center;
+  }
+
+  .courseResults {
+    max-height: none;
+  }
+}
